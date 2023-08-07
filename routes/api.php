@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CrosswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/crosswords/date/{date}', [CrosswordController::class, 'getCrosswordsForDate'])
+    ->where('date', '[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}');
+
+Route::get('/crosswords/all', function (Request $request) {
+    return CrosswordController::getAllCrosswords();
 });
